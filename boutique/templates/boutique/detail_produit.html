@@ -1,0 +1,58 @@
+
+{% extends 'boutique/base.html' %}
+
+{% block titre %}{{ produit.nom }} - Christmas Corner{% endblock %}
+
+{% block contenu %}
+
+<section class="conteneur section detail">
+
+    {% if produit.image %}
+        <img src="{{ produit.image.url }}" alt="{{ produit.nom }}">
+    {% endif %}
+
+    <div>
+        <p class="categorie">{{ produit.id_categorie.nom }}</p>
+        <h1>{{ produit.nom }}</h1>
+        <p>{{ produit.description }}</p>
+        <h2>{{ produit.prix }} Ar</h2>
+
+        {% if produit.quantite_stock > 0 %}
+            <p>Disponible : {{ produit.quantite_stock }}</p>
+        {% else %}
+            <p>Ce produit est actuellement indisponible.</p>
+        {% endif %}
+
+{% if produit.quantite_stock > 0 %}
+
+    <form method="post"
+          action="{% url 'ajouter_panier' produit.id_produit %}">
+
+        {% csrf_token %}
+
+        <label for="quantite">Quantité :</label>
+
+        <input type="number"
+               name="quantite"
+               id="quantite"
+               value="1"
+               min="1"
+               max="{{ produit.quantite_stock }}"
+               required>
+
+        <button type="submit" class="bouton">
+            Ajouter au panier
+        </button>
+
+    </form>
+
+{% endif %}
+
+        <a href="{% url 'catalogue' %}" class="bouton">
+            Retour au catalogue
+        </a>
+    </div>
+
+</section>
+
+{% endblock %}

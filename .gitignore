@@ -1,0 +1,21 @@
+# Environnement virtuel
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.log
+
+# Informations confidentielles
+.env
+.env.*
+!.env.example
+
+# Fichiers temporaires
+.DS_Store
+Thumbs.db
+.pytest_cache/
+
+# Fichiers générés
+staticfiles/

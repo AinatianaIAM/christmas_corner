@@ -1,0 +1,25 @@
+
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}Administration | Christmas Corner{% endblock %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+{% endblock %}
+
+{% block branding %}
+    <h1 id="site-name">
+        <a href="{% url 'admin:index' %}">
+             Christmas Corner
+        </a>
+    </h1>
+{% endblock %}
+
+{% block nav-global %}
+    <a href="{% url 'admin_tableau_de_bord' %}"
+       style="color:#e5b75e; margin-left:30px;">
+        Tableau de bord
+    </a>
+{% endblock %}

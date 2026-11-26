@@ -1,0 +1,71 @@
+
+{% extends 'boutique/base.html' %}
+
+{% block titre %}Accueil | Christmas Corner{% endblock %}
+
+{% block contenu %}
+
+<section class="hero">
+
+    <div class="hero-contenu">
+
+        <p class="hero-sous-titre">Bienvenue dans notre boutique</p>
+
+        <h1>
+            Christmas
+            <span>Corner</span>
+        </h1>
+
+        <div class="separateur">
+            <span>✧</span>
+        </div>
+
+        <p class="hero-description">
+            La magie de Noël commence ici...
+        </p>
+
+        <p class="hero-categories">
+            Gourmandises <span>•</span>
+            Cadeaux <span>•</span>
+            Décorations
+        </p>
+
+        <a href="{% url 'catalogue' %}" class="bouton-or">
+            Découvrir nos produits <span>→</span>
+        </a>
+
+    </div>
+
+</section>
+
+<section class="produits-accueil conteneur">
+
+    <div class="titre-section">
+        <p>Notre sélection</p>
+        <h2>Nos coups de cœur de Noël</h2>
+    </div>
+
+    <div class="grille-produits">
+        {% for produit in produits %}
+            <article class="carte-produit">
+
+                {% if produit.image %}
+                    <img src="{{ produit.image.url }}" alt="{{ produit.nom }}">
+                {% endif %}
+
+                <h3>{{ produit.nom }}</h3>
+                <p>{{ produit.prix }} Ar</p>
+
+                <a href="{% url 'detail_produit' produit.id_produit %}">
+                    Découvrir
+                </a>
+
+            </article>
+        {% empty %}
+            <p>Aucun produit disponible pour le moment.</p>
+        {% endfor %}
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,323 @@
+/* ==============================
+   VARIABLES
+============================== */
+
+:root {
+    --vert: #157a54;
+    --vert-fonce: #517767;
+    --vert-clair: #15ff76;
+    --or: #e5b75e;
+    --brun: #a47a39;
+    --creme: #faf6ed;
+    --beige: #f3eee3;
+    --bordure: #e5dccb;
+    --gris: #777;
+    --rouge: #b84b40;
+
+    --ombre: 0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* ==============================
+   BASE
+============================== */
+
+body {
+    background: #f5f3ed;
+}
+
+a:link,
+a:visited,
+.addlink,
+.paginator,
+div.breadcrumbs a {
+    color: var(--vert);
+}
+
+a:hover {
+    color: var(--brun);
+}
+
+.paginator a {
+    color: var(--brun);
+}
+
+/* Titres */
+#content h1,
+.dashboard h1,
+.dashboard-cc h1,
+.dashboard-cc h2 {
+    color: var(--vert);
+}
+
+#content h1,
+.dashboard h1 {
+    font-weight: bold;
+}
+
+/* ==============================
+   BARRE SUPÉRIEURE
+============================== */
+
+#header {
+    background: var(--vert-fonce);
+    color: white;
+    padding: 15px 30px;
+    border-bottom: 3px solid var(--or);
+}
+
+#site-name a {
+    color: white;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+#site-name a:hover,
+#user-tools a {
+    color: var(--or);
+}
+
+#user-tools {
+    color: #eee;
+}
+
+/* ==============================
+   ÉLÉMENTS PARTAGÉS
+============================== */
+
+
+.module caption,
+.module h2,
+#changelist-filter h2,
+#changelist table thead th,
+.dashboard-table th {
+    background: var(--vert-fonce);
+    color: var(--creme);
+}
+
+.module caption a,
+.module h2 a {
+    color: white;
+}
+
+/* Boutons */
+.button,
+input[type="submit"],
+input[type="button"],
+.submit-row input,
+#changelist .actions button {
+    background: var(--vert);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 9px 16px;
+}
+
+.button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.submit-row input:hover,
+#changelist .actions button:hover {
+    background: var(--vert-fonce);
+}
+
+/* Champs */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+    border: 1px solid #d8d1c4;
+    border-radius: 5px;
+    padding: 8px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--or);
+    outline: none;
+}
+
+/* Cartes blanches du tableau de bord */
+.dashboard-carte,
+.dashboard-recettes > div,
+.dashboard-table {
+    background: white;
+    border-radius: 9px;
+    box-shadow: var(--ombre);
+}
+
+/* ==============================
+   MODULES, FIL D'ARIANE
+============================== */
+
+.module {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e8e2d7;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+}
+
+div.breadcrumbs {
+    background: #e9e3d6;
+    color: var(--vert);
+    padding: 12px 30px;
+}
+
+/* ==============================
+   LISTE DES COMMANDES
+============================== */
+
+#changelist {
+    background: var(--creme);
+    border-radius: 10px;
+}
+
+#changelist-filter {
+    background: #fffdf8;
+    border-left: 1px solid var(--bordure);
+}
+
+#changelist-filter li.selected a {
+    color: var(--vert);
+    font-weight: bold;
+}
+
+#changelist-filter a:hover {
+    color: var(--creme);
+}
+
+#changelist table tbody tr:nth-child(even) {
+    background: var(--beige);
+}
+
+#changelist table tbody tr:hover {
+    background: #eee4cf;
+}
+
+#changelist .actions {
+    background: var(--beige);
+    border: 1px solid var(--bordure);
+}
+
+
+
+
+/* ==============================
+   TABLEAU DE BORD
+============================== */
+
+.dashboard-cc {
+    padding: 20px 10px;
+}
+
+.dashboard-cc h1 {
+    margin-bottom: 8px;
+}
+
+.dashboard-cc h2 {
+    font-size: 19px;
+    margin: 30px 0 18px;
+}
+
+.dashboard-intro {
+    color: var(--gris);
+    margin-bottom: 35px;
+}
+
+.dashboard-cartes {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.dashboard-recettes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.dashboard-carte {
+    padding: 25px;
+    border-left: 4px solid var(--vert);
+}
+
+.dashboard-carte.alerte {
+    border-left-color: var(--rouge);
+}
+
+.dashboard-recettes > div {
+    padding: 23px;
+}
+
+.dashboard-carte span,
+.dashboard-recettes span {
+    display: block;
+    color: var(--gris);
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.dashboard-carte strong,
+.dashboard-recettes strong {
+    color: var(--vert);
+}
+
+.dashboard-carte strong {
+    display: block;
+    font-size: 27px;
+}
+
+.dashboard-recettes strong {
+    font-size: 21px;
+}
+
+.dashboard-recettes .recette-total {
+    background: var(--vert);
+}
+
+.dashboard-recettes .recette-total span,
+.dashboard-recettes .recette-total strong {
+    color: white;
+}
+
+.dashboard-table {
+    overflow-x: auto;
+}
+
+.dashboard-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.dashboard-table th,
+.dashboard-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+/* ==============================
+   RESPONSIVE
+============================== */
+
+@media (max-width: 900px) {
+    .dashboard-cartes {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dashboard-recettes {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 550px) {
+    .dashboard-cartes {
+        grid-template-columns: 1fr;
+    }
+}
+#changelist table thead th a,
+#changelist table thead th {
+    color: #fffdfa !important;
+}

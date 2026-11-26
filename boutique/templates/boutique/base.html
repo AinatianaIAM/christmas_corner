@@ -1,0 +1,45 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titre %}Christmas Corner{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <header class="entete">
+        <div class="navigation">
+
+            <a class="logo" href="{% url 'accueil' %}">
+                
+                <span class="logo-texte">
+                    Christmas
+                    <strong>Corner</strong>
+                </span>
+            </a>
+
+            <nav>
+                <a href="{% url 'accueil' %}">Accueil</a>
+                <a href="{% url 'catalogue' %}">Nos produits</a>
+                <a class="lien-panier" href="{% url 'panier' %}">
+                    Mon panier
+                </a>
+            </nav>
+
+        </div>
+    </header>
+
+    <main>
+        {% block contenu %}{% endblock %}
+    </main>
+
+    <footer class="pied-page">
+        <p>Christmas Corner — La magie de Noël commence ici.</p>
+        <p>© {% now "Y" %} Christmas Corner</p>
+    </footer>
+
+</body>
+</html>

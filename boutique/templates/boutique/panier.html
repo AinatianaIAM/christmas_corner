@@ -1,0 +1,70 @@
+
+{% extends 'boutique/base.html' %}
+
+{% block titre %}Mon panier - Christmas Corner{% endblock %}
+
+{% block contenu %}
+
+<section class="conteneur section">
+    <h1>Mon panier</h1>
+
+    {% if produits_panier %}
+
+        <div class="table-panier">
+
+            {% for ligne in produits_panier %}
+                <div class="ligne-panier">
+
+                    <div>
+                        <h3>{{ ligne.produit.nom }}</h3>
+                        <p>Prix unitaire : {{ ligne.produit.prix }} Ar</p>
+                        <p>Sous-total : {{ ligne.sous_total }} Ar</p>
+                    </div>
+
+                    <form method="post"
+                          action="{% url 'modifier_panier' ligne.produit.id_produit %}">
+                        {% csrf_token %}
+
+                        <input type="number"
+                               name="quantite"
+                               value="{{ ligne.quantite }}"
+                               min="0"
+                               max="{{ ligne.produit.quantite_stock }}">
+
+                        <button type="submit">Modifier</button>
+                    </form>
+
+                    <form method="post"
+                          action="{% url 'supprimer_panier' ligne.produit.id_produit %}">
+                        {% csrf_token %}
+                        <button type="submit">Retirer</button>
+                    </form>
+
+                </div>
+            {% endfor %}
+
+        </div>
+
+        <h2>Total : {{ total }} Ar</h2>
+
+        <a href="{% url 'catalogue' %}" class="bouton">
+            Continuer mes achats
+        </a>
+
+        <a href="{% url 'passer_commande' %}" class="bouton">
+    Passer la commande
+        </a>
+
+    {% else %}
+
+        <p>Votre panier est vide.</p>
+
+        <a href="{% url 'catalogue' %}" class="bouton">
+            Découvrir nos produits
+        </a>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

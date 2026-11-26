@@ -1,0 +1,112 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+
+<h1>Suivi des ventes</h1>
+
+<form method="get" style="margin: 20px 0;">
+    <label>Date de début :</label>
+    <input type="date" name="date_debut" value="{{ date_debut }}">
+
+    <label>Date de fin :</label>
+    <input type="date" name="date_fin" value="{{ date_fin }}">
+
+    <label>Produit :</label>
+    <select name="produit">
+        <option value="">Tous les produits</option>
+        {% for produit in produits %}
+            <option value="{{ produit.id_produit }}"
+                {% if produit_selectionne == produit.id_produit|stringformat:"s" %}
+                    selected
+                {% endif %}>
+                {{ produit.nom }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Filtrer</button>
+    <a href="{% url 'admin:suivi_ventes' %}">Réinitialiser</a>
+</form>
+
+{% if erreur %}
+    <p style="color: red;">{{ erreur }}</p>
+{% endif %}
+
+<hr>
+
+<h2>Résumé des encaissements</h2>
+
+<table style="width: 100%; max-width: 700px;">
+    <tr>
+        <th>Ventes de produits</th>
+        <td>{{ total_produits|floatformat:0 }} Ar</td>
+    </tr>
+    <tr>
+        <th>Frais de livraison</th>
+        <td>{{ total_livraison|floatformat:0 }} Ar</td>
+    </tr>
+    <tr>
+        <th>Total encaissé</th>
+        <td><strong>{{ total_encaisse|floatformat:0 }} Ar</strong></td>
+    </tr>
+</table>
+
+<hr>
+
+<h2>Détail des ventes de produits</h2>
+
+<table style="width: 100%;">
+    <thead>
+        <tr>
+            <th>Commande</th>
+            <th>Client</th>
+            <th>Date de paiement</th>
+            <th>Montant</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for vente in ventes_produits %}
+        <tr>
+            <td>N° {{ vente.commande }}</td>
+            <td>{{ vente.client }}</td>
+            <td>{{ vente.date|date:"d/m/Y" }}</td>
+            <td>{{ vente.montant|floatformat:0 }} Ar</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">Aucune vente trouvée.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<hr>
+
+<h2>Détail des frais de livraison encaissés</h2>
+
+<table style="width: 100%;">
+    <thead>
+        <tr>
+            <th>Commande</th>
+            <th>Client</th>
+            <th>Date de paiement</th>
+            <th>Montant</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for frais in frais_livraison %}
+        <tr>
+            <td>N° {{ frais.commande }}</td>
+            <td>{{ frais.client }}</td>
+            <td>{{ frais.date|date:"d/m/Y" }}</td>
+            <td>{{ frais.montant|floatformat:0 }} Ar</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">Aucun frais de livraison trouvé.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

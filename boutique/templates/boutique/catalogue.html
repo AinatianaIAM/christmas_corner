@@ -1,0 +1,59 @@
+
+{% extends 'boutique/base.html' %}
+
+{% block titre %}Catalogue - Christmas Corner{% endblock %}
+
+{% block contenu %}
+
+<section class="conteneur section">
+    <h1>Notre catalogue</h1>
+
+    <form method="get" class="filtre">
+        <label for="categorie">Filtrer par catégorie :</label>
+
+        <select name="categorie" id="categorie">
+            <option value="">Toutes les catégories</option>
+
+            {% for categorie in categories %}
+                <option value="{{ categorie.id_categorie }}"
+                    {% if categorie_selectionnee == categorie.id_categorie|stringformat:"s" %}
+                        selected
+                    {% endif %}>
+                    {{ categorie.nom }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <button type="submit" class="bouton">Filtrer</button>
+    </form>
+
+    <div class="grille">
+        {% for produit in produits %}
+            <article class="carte">
+
+                {% if produit.image %}
+                    <img src="{{ produit.image.url }}" alt="{{ produit.nom }}">
+                {% endif %}
+
+                <p class="categorie">{{ produit.id_categorie.nom }}</p>
+                <h3>{{ produit.nom }}</h3>
+                <p>{{ produit.prix }} Ar</p>
+
+                {% if produit.quantite_stock > 0 %}
+                    <p>En stock</p>
+                {% else %}
+                    <p>Rupture de stock</p>
+                {% endif %}
+
+                <a href="{% url 'detail_produit' produit.id_produit %}">
+                    Voir le produit
+                </a>
+
+            </article>
+        {% empty %}
+            <p>Aucun produit trouvé.</p>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

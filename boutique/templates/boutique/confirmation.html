@@ -1,0 +1,67 @@
+
+{% extends 'boutique/base.html' %}
+
+{% block titre %}Commande enregistrée{% endblock %}
+
+{% block contenu %}
+
+<section class="conteneur section confirmation">
+
+    <div class="carte-confirmation">
+
+        <div class="confirmation-icone">✓</div>
+
+        <h1>Merci pour votre commande !</h1>
+
+        <p class="confirmation-message">
+            Votre commande a bien été enregistrée.
+        </p>
+
+        <div class="numero-commande">
+            Commande n°{{ commande.id_commande }}
+        </div>
+
+        <div class="confirmation-details">
+
+            <div class="detail-ligne">
+                <span>Statut de la commande</span>
+                <strong>{{ commande.get_statut_commande_display }}</strong>
+            </div>
+
+            <div class="detail-ligne">
+                <span>Mode de réception</span>
+                <strong>{{ commande.get_mode_reception_display }}</strong>
+            </div>
+
+            <div class="detail-ligne">
+                <span>Statut du paiement</span>
+                <strong>{{ commande.get_statut_paiement_display }}</strong>
+            </div>
+
+        </div>
+
+        <div class="confirmation-total">
+            <span>Total des produits</span>
+            <strong>{{ total }} Ar</strong>
+        </div>
+
+        {% if commande.mode_reception == 'LIVRAISON' %}
+            <p class="confirmation-info">
+                Les frais de livraison éventuels vous seront communiqués
+                ultérieurement par notre équipe.
+            </p>
+        {% endif %}
+
+        <p class="confirmation-suivi">
+            Nous vous contacterons pour le suivi de ta commande.
+        </p>
+
+        <a href="{% url 'accueil' %}" class="bouton">
+            Retour à l'accueil
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

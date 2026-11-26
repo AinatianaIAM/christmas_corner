@@ -1,0 +1,804 @@
+/* ==============================
+   VARIABLES
+============================== */
+
+:root {
+    --vert: #103c2b;
+    --vert-fonce: #09291e;
+    --vert-clair: #1b6044;
+    --or: #e5b75e;
+    --or-clair: #f1ce83;
+    --brun: #a47a39;
+    --creme: #faf6ed;
+    --texte: #292c27;
+    --gris: #666;
+    --bordure: #d9d2c5;
+    --rouge: #a83d36;
+
+    --ombre: 0 4px 15px rgba(0, 0, 0, 0.06);
+    --ombre-forte: 0 8px 22px rgba(0, 0, 0, 0.12);
+    --ombre-large: 0 5px 20px rgba(0, 0, 0, 0.07);
+    --rond: 25px;
+    --transition: 0.3s;
+}
+
+/* ==============================
+   BASE
+============================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: var(--creme);
+    color: var(--texte);
+}
+
+a {
+    text-decoration: none;
+}
+
+.conteneur {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* ==============================
+   COMPOSANTS PARTAGÉS
+============================== */
+
+/* Boutons (vert → or au survol) */
+.bouton,
+.carte a,
+.ligne-panier button {
+    border: none;
+    background: var(--vert);
+    color: white;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.bouton:hover,
+.carte a:hover,
+.ligne-panier button:hover {
+    background: var(--or);
+    color: var(--vert-fonce);
+}
+
+.bouton {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: var(--rond);
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Champs de formulaire */
+.filtre select,
+.champ :is(input, select, textarea),
+.detail form input,
+.ligne-panier input {
+    border: 1px solid var(--bordure);
+    border-radius: 6px;
+    background: var(--creme);
+    color: var(--texte);
+    font-size: 15px;
+}
+
+.filtre select:focus,
+.champ :is(input, select, textarea):focus,
+.detail form input:focus,
+.ligne-panier input:focus {
+    outline: none;
+    border-color: var(--or);
+    box-shadow: 0 0 0 3px rgba(229, 183, 94, 0.15);
+}
+
+/* Cartes blanches */
+.carte-produit,
+.carte,
+.ligne-panier,
+.filtre {
+    background: white;
+    box-shadow: var(--ombre);
+}
+
+/* ==============================
+   NAVIGATION
+============================== */
+
+.entete {
+    position: absolute;
+    top: 18px;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+.navigation {
+    width: 88%;
+    max-width: 1250px;
+    min-height: 76px;
+    margin: auto;
+    padding: 10px 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(9, 41, 30, 0.96);
+    border: 1px solid rgba(229, 183, 94, 0.5);
+    border-radius: 50px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+}
+
+.logo-symbole {
+    font-size: 35px;
+}
+
+.logo-texte {
+    font-size: 22px;
+    line-height: 1.05;
+}
+
+.logo-texte strong {
+    display: block;
+    color: var(--or);
+    font-style: italic;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+nav a {
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    transition: color 0.2s;
+}
+
+nav a:hover {
+    color: var(--or);
+}
+
+nav .lien-panier {
+    border: 1px solid var(--or);
+    border-radius: 30px;
+    padding: 11px 22px;
+}
+
+/* ==============================
+   BANNIÈRE PRINCIPALE
+============================== */
+
+.hero {
+    min-height: 680px;
+    height: 100vh;
+    max-height: 850px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.45)),
+        url("../image/noel-background.jpg") center / cover no-repeat;
+}
+
+.hero-contenu {
+    padding: 130px 20px 40px;
+}
+
+.hero-sous-titre {
+    color: var(--or);
+    font-size: 25px;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.hero h1 {
+    font-size: clamp(65px, 9vw, 115px);
+    line-height: 0.95;
+    font-weight: normal;
+    letter-spacing: -4px;
+}
+
+.hero h1 span {
+    display: block;
+    color: var(--or);
+    font-style: italic;
+}
+
+.separateur {
+    color: var(--or);
+    font-size: 30px;
+    margin: 18px 0;
+}
+
+.hero-description {
+    font-size: clamp(21px, 3vw, 32px);
+    font-style: italic;
+    margin-bottom: 15px;
+}
+
+.hero-categories {
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    margin-bottom: 32px;
+}
+
+.hero-categories span {
+    color: var(--or);
+    padding: 0 8px;
+}
+
+.bouton-or {
+    display: inline-block;
+    padding: 17px 32px;
+    border-radius: 40px;
+    background: var(--or);
+    color: var(--vert-fonce);
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    transition: var(--transition);
+}
+
+.bouton-or:hover {
+    background: var(--or-clair);
+    transform: translateY(-3px);
+}
+
+.bouton-or span {
+    margin-left: 12px;
+}
+
+/* ==============================
+   ACCUEIL : PRODUITS
+============================== */
+
+.produits-accueil {
+    padding: 65px 0 50px;
+}
+
+.titre-section {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.titre-section p {
+    color: var(--brun);
+    font-style: italic;
+}
+
+.titre-section h2 {
+    color: var(--vert);
+    font-size: 32px;
+    margin-top: 5px;
+}
+
+.grille-produits {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+.carte-produit {
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.carte-produit img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.carte-produit h3 {
+    margin: 12px 0 5px;
+}
+
+.carte-produit a {
+    display: inline-block;
+    margin-top: 12px;
+    color: var(--vert);
+    font-weight: bold;
+}
+
+/* ==============================
+   SECTIONS DE PAGE (commun)
+============================== */
+
+.section {
+    padding-top: 150px;
+    padding-bottom: 60px;
+}
+
+.section > h1 {
+    text-align: center;
+    color: var(--vert);
+    font-size: 38px;
+    margin-bottom: 35px;
+}
+
+.section > h2 {
+    max-width: 950px;
+    margin: 30px auto;
+    text-align: right;
+    color: var(--vert);
+    font-size: 25px;
+}
+
+.section > p {
+    text-align: center;
+    color: var(--gris);
+    font-size: 16px;
+    margin: 35px 0;
+}
+
+.section > .bouton {
+    margin: 10px 8px 10px 0;
+}
+
+/* ==============================
+   CATALOGUE
+============================== */
+
+.filtre {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 45px;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.filtre label {
+    font-size: 15px;
+    color: var(--vert);
+    font-weight: bold;
+}
+
+.filtre select {
+    min-width: 220px;
+    padding: 11px 15px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.filtre .bouton {
+    padding: 11px 25px;
+    border-radius: 5px;
+}
+
+.filtre .bouton:hover {
+    background: var(--vert-clair);
+    color: white;
+}
+
+.grille {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 30px;
+}
+
+.carte {
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    padding-bottom: 22px;
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.carte:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--ombre-forte);
+}
+
+.carte img {
+    display: block;
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+}
+
+.carte .categorie {
+    margin: 18px 15px 5px;
+    color: var(--brun);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.carte h3 {
+    color: var(--vert);
+    font-size: 21px;
+    margin: 8px 15px;
+}
+
+.carte p:not(.categorie) {
+    margin: 8px 0;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.carte a {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 10px 22px;
+    border-radius: var(--rond);
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+}
+
+/* ==============================
+   PASSER UNE COMMANDE
+============================== */
+
+.formulaire {
+    max-width: 650px;
+    margin: 30px auto 60px;
+    padding: 35px 40px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--ombre-large);
+}
+
+.champ {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 22px;
+}
+
+.champ label {
+    color: var(--vert);
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 9px;
+}
+
+.champ :is(input, select, textarea) {
+    width: 100%;
+    padding: 12px 14px;
+    font-family: Arial, sans-serif;
+}
+
+.erreur {
+    color: #b3261e;
+    font-size: 13px;
+    margin-top: 7px;
+}
+
+.erreur ul {
+    margin: 5px 0;
+    padding-left: 20px;
+}
+
+.formulaire .bouton {
+    display: block;
+    width: 100%;
+    margin-top: 30px;
+    padding: 14px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+/* ==============================
+   DÉTAIL PRODUIT
+============================== */
+
+.detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 55px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-top: 150px;
+    padding-bottom: 70px;
+}
+
+.detail > img {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: var(--ombre-large);
+}
+
+.detail .categorie {
+    color: var(--brun);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.detail h1 {
+    color: var(--vert);
+    font-size: 36px;
+    margin: 10px 0 20px;
+}
+
+.detail h2 {
+    color: var(--brun);
+    font-size: 27px;
+    margin: 25px 0;
+}
+
+.detail > div > p:not(.categorie) {
+    color: var(--gris);
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+.detail form {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 25px 0;
+}
+
+.detail form label {
+    color: var(--vert);
+    font-weight: bold;
+}
+
+.detail form input {
+    width: 85px;
+    padding: 11px;
+}
+
+.detail .bouton {
+    margin: 8px 8px 0 0;
+}
+
+/* ==============================
+   PANIER
+============================== */
+
+.table-panier {
+    max-width: 950px;
+    margin: 35px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.ligne-panier {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 25px;
+    padding: 25px 30px;
+    border-radius: 10px;
+}
+
+.ligne-panier h3 {
+    color: var(--vert);
+    font-size: 19px;
+    margin-bottom: 12px;
+}
+
+.ligne-panier p {
+    color: var(--gris);
+    font-size: 14px;
+    margin: 7px 0;
+}
+
+.ligne-panier form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ligne-panier input {
+    width: 70px;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.ligne-panier button {
+    padding: 10px 16px;
+    border-radius: 20px;
+}
+
+/* Bouton « supprimer » */
+.ligne-panier form:last-child button {
+    background: var(--rouge);
+}
+
+.ligne-panier form:last-child button:hover {
+    background: #7e2924;
+    color: white;
+}
+
+/* ==============================
+   CONFIRMATION
+============================== */
+
+.confirmation-info {
+    margin: 18px 0;
+    padding: 14px;
+    background: var(--creme);
+    border-left: 4px solid var(--or);
+    border-radius: 5px;
+    color: #665638;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.confirmation-suivi {
+    margin-bottom: 35px;
+}
+
+.carte-confirmation .bouton {
+    position: relative;
+    margin-top: 10px;
+    clear: both;
+}
+
+/* ==============================
+   PIED DE PAGE
+============================== */
+
+.pied-page {
+    padding: 30px 15px;
+    background: var(--vert-fonce);
+    color: white;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+}
+
+.pied-page p + p {
+    margin-top: 8px;
+    color: #d4c7ad;
+}
+
+/* ==============================
+   RESPONSIVE (regroupé)
+============================== */
+
+@media (max-width: 900px) {
+    .grille {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 750px) {
+    .navigation {
+        width: 94%;
+        padding: 12px 18px;
+        flex-direction: column;
+        gap: 15px;
+        border-radius: 20px;
+    }
+
+    nav {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    nav a {
+        font-size: 13px;
+    }
+
+    .hero {
+        min-height: 650px;
+        height: 90vh;
+    }
+
+    .hero-contenu {
+        padding-top: 160px;
+    }
+
+    .hero h1 {
+        letter-spacing: -2px;
+    }
+
+    .grille-produits {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .section {
+        padding-top: 190px;
+    }
+
+    .section > h2 {
+        padding: 0 15px;
+    }
+
+    .section > .bouton {
+        display: block;
+        margin: 12px 10px;
+    }
+
+    .formulaire {
+        margin: 25px 15px 45px;
+        padding: 25px 20px;
+    }
+
+    .detail {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        padding: 190px 20px 50px;
+    }
+
+    .detail > img {
+        height: 300px;
+    }
+
+    .detail h1 {
+        font-size: 28px;
+    }
+
+    .detail form {
+        align-items: flex-start;
+    }
+
+    .table-panier {
+        margin: 25px 10px;
+    }
+
+    .ligne-panier {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 20px;
+    }
+
+    .ligne-panier form {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 550px) {
+    .section > h1 {
+        font-size: 30px;
+    }
+
+    .grille {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+
+    .carte img {
+        height: 230px;
+    }
+
+    .filtre {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filtre select,
+    .filtre button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 400px) {
+    .grille-produits {
+        grid-template-columns: 1fr;
+    }
+}
