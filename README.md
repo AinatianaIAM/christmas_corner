@@ -78,7 +78,22 @@ Les scripts SQL fournis permettent de créer la structure et d'insérer les donn
 9. Lancer le serveur :
 
    `python manage.py runserver`
+   
+### Variables d'environnement
 
+Avant de lancer le projet, chaque utilisateur doit définir ses propres variables d'environnement.
+
+Générer une clé secrète Django :
+
+`python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"`
+
+Définir les variables dans Git Bash :
+
+`export DJANGO_SECRET_KEY="votre_cle_generee"`
+
+`export DB_PASSWORD="votre_mot_de_passe_postgresql"`
+
+Ces variables doivent être définies avant le lancement du serveur Django.
 ## Accès
 
 - Site client : http://127.0.0.1:8000/
