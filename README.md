@@ -84,6 +84,4 @@ Les scripts SQL fournis permettent de créer la structure et d'insérer les donn
 - Site client : http://127.0.0.1:8000/
 - Administration : http://127.0.0.1:8000/admin/
 
-## Projet universitaire
 
-Projet réalisé dans le cadre d'un Master 2.
