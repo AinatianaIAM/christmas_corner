@@ -67,7 +67,7 @@ Les scripts SQL fournis permettent de créer la structure et d'insérer les donn
 
    `pip install -r requirements.txt`
 
-5. Créer une base de données PostgreSQL.
+5. Créer une base de données PostgreSQL (suggestion nom : christmas-corner).
 
 6. Exécuter les scripts `schema.sql` et `data.sql` dans cette base.
 
@@ -82,9 +82,7 @@ Définir les variables dans Git Bash :
 
 `export DB_PASSWORD="votre_mot_de_passe_postgresql"`
 
-**Ces variables doivent être définies avant le lancement du serveur Django.**
-
-
+*Ces variables doivent être définies avant le lancement du serveur Django.*
 
 8. Configurer les paramètres de connexion PostgreSQL dans `config/settings.py`: mettre le même nom de database que dans PostgreSQL.
 
