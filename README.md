@@ -72,28 +72,30 @@ Les scripts SQL fournis permettent de créer la structure et d'insérer les donn
 6. Exécuter les scripts `schema.sql` et `data.sql` dans cette base.
 
 7. Définir les variables d'environnement `DB_PASSWORD` et `DJANGO_SECRET_KEY`.
+#### Variables d'environnement
 
-8. Configurer les paramètres de connexion PostgreSQL dans `config/settings.py`.
+Avant de lancer le projet, chaque utilisateur doit définir ses propres variables d'environnement.
+
+Définir les variables dans Git Bash :
+
+`$ export DJANGO_SECRET_KEY="$(python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())')"`
+
+`export DB_PASSWORD="votre_mot_de_passe_postgresql"`
+
+**Ces variables doivent être définies avant le lancement du serveur Django.**
+
+
+
+8. Configurer les paramètres de connexion PostgreSQL dans `config/settings.py`: mettre le même nom de database que dans PostgreSQL.
+
+9. Exécuter :
+
+   `python manage.py migrate`
 
 9. Lancer le serveur :
 
    `python manage.py runserver`
-   
-### Variables d'environnement
 
-Avant de lancer le projet, chaque utilisateur doit définir ses propres variables d'environnement.
-
-Générer une clé secrète Django :
-
-`python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"`
-
-Définir les variables dans Git Bash :
-
-`export DJANGO_SECRET_KEY="votre_cle_generee"`
-
-`export DB_PASSWORD="votre_mot_de_passe_postgresql"`
-
-Ces variables doivent être définies avant le lancement du serveur Django.
 ## Accès
 
 - Site client : http://127.0.0.1:8000/
