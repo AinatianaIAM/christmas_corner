@@ -9,12 +9,12 @@ INSERT INTO categorie (id_categorie, nom) VALUES
  (2, 'Cadeaux / Décoration');
 
 INSERT INTO produit (id_produit, nom, description, prix, quantite_stock, image, actif, id_categorie) VALUES
- (1, 'Biscuits au gingembre', 'Boîte de 12 biscuits épicés', 12000, 40, 'produits/biscuits_gingembre.jpg', TRUE, 1),
- (2, 'Chocolats de Noël',     'Assortiment de 20 chocolats',  25000, 25, 'produits/chocolats_noel.jpg',      TRUE, 1),
+ (1, 'Biscuits de Noël', 'Boîte de 12 biscuits épicés', 12000, 40, 'produits/biscuits_gingembre.jpg', TRUE, 1),
+ (2, 'Chocolats de Noël',     'Boîte de 20 chocolats',  25000, 25, 'produits/chocolats_noel.jpg',      TRUE, 1),
  (3, 'Cannes en sucre',       'Sachet de 10 cannes en sucre',  6000, 60, 'produits/cannes_sucre.jpg',        TRUE, 1),
- (4, 'Bûche de Noël',         'Bûche chocolat-praliné, 6 parts', 45000, 8, 'produits/buche_noel.jpg',        TRUE, 1),
+ (4, 'Bûche de Noël',         'Bûche chocolat, 6 parts', 45000, 8, 'produits/buche_noel.jpg',        TRUE, 1),
  (5, 'Boules de sapin',       'Lot de 6 boules rouges et or', 18000, 30, 'produits/boules_sapin.jpg',        TRUE, 2),
- (6, 'Guirlande lumineuse',   'Guirlande LED 5 m, blanc chaud', 30000, 15, 'produits/guirlande.jpg',         TRUE, 2),
+ (6, 'Guirlande lumineuse',   'Guirlande LED 5 m', 30000, 15, 'produits/guirlande.jpg',         TRUE, 2),
  (7, 'Bonnet du Père Noël',   'Bonnet rouge taille unique',    8000, 50, 'produits/bonnet.jpg',              TRUE, 2),
  (8, 'Calendrier de l''Avent 2025', 'Ancien modèle, retiré de la vente', 20000, 0, 'produits/calendrier.jpg', FALSE, 1);
 

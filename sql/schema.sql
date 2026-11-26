@@ -39,7 +39,7 @@ CREATE TABLE commande (
         REFERENCES client(id_client) ON DELETE RESTRICT,
     date_commande         TIMESTAMP NOT NULL DEFAULT NOW(),
     statut_commande       VARCHAR(20) NOT NULL DEFAULT 'EN_ATTENTE'
-        CHECK (statut_commande IN ('EN_ATTENTE','CONFIRMEE','TERMINEE','ANNULEE')),
+        CHECK (statut_commande IN ('EN_ATTENTE','CONFIRMEE','PRETE','TERMINEE','ANNULEE')),
     mode_reception        VARCHAR(10) NOT NULL
         CHECK (mode_reception IN ('RETRAIT','LIVRAISON')),
     adresse_livraison     VARCHAR(255),
@@ -54,10 +54,9 @@ CREATE TABLE commande (
     -- livraison : adresse obligatoire
     CONSTRAINT ck_adresse_livraison
         CHECK (mode_reception = 'RETRAIT' OR adresse_livraison IS NOT NULL),
-    -- retrait : pas de frais
+    --  retrait : pas de frais
     CONSTRAINT ck_frais_retrait
         CHECK (mode_reception = 'LIVRAISON' OR frais_livraison = 0),
-    -- paiement cohérent
     CONSTRAINT ck_paiement
         CHECK (
             (statut_paiement = 'PAYE' AND mode_paiement IS NOT NULL AND date_paiement IS NOT NULL)
@@ -79,10 +78,7 @@ CREATE TABLE ligne_commande (
     PRIMARY KEY (id_commande, id_produit)
 );
 
--- ------------------------------------------------------------
--- Règle : une commande contient au moins une ligne.
--- Vérifiée en fin de transaction (contrainte différée).
--- ------------------------------------------------------------
+
 CREATE OR REPLACE FUNCTION fn_commande_au_moins_une_ligne() RETURNS trigger AS $$
 BEGIN
     IF NOT EXISTS (SELECT 1 FROM ligne_commande WHERE id_commande = NEW.id_commande) THEN
