@@ -10,6 +10,7 @@ from django.urls import path, reverse
 from datetime import date
 from decimal import Decimal
 from django.shortcuts import render
+from django import forms
 
 @admin.register(Categorie)
 class CategorieAdmin(admin.ModelAdmin):
@@ -21,6 +22,7 @@ class CategorieAdmin(admin.ModelAdmin):
 class ProduitAdmin(admin.ModelAdmin):
     list_display = (
         "id_produit",
+        "modifier_produit",
         "nom",
         "id_categorie",
         "prix",
@@ -30,32 +32,112 @@ class ProduitAdmin(admin.ModelAdmin):
     list_filter = ("id_categorie", "actif")
     search_fields = ("nom", "description")
     list_editable = ("prix", "quantite_stock", "actif")
-
+    @admin.display(description="Gestion de la commande")
+    def modifier_produit(self, obj):
+        url = reverse(
+            f'admin:{self.model._meta.app_label}_{self.model._meta.model_name}_change',
+            args=[obj.pk]
+        )
+        return format_html(
+            '<a class="button" href="{}" style="background-color: #517767; color: white; '
+    'padding: 6px 12px; border-radius: 5px; text-decoration: none; '
+    'font-weight: 600;">Modifier</a>',
+            url
+        )
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
     list_display = ("id_client", "nom", "telephone", "email")
     search_fields = ("nom", "telephone", "email")
 
+class CommandeAdminForm(forms.ModelForm):
 
+    class Meta:
+        model = Commande
+        fields = '__all__'
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        statut_paiement = cleaned_data.get('statut_paiement')
+        mode_paiement = cleaned_data.get('mode_paiement')
+        date_paiement = cleaned_data.get('date_paiement')
+
+        mode_reception = cleaned_data.get('mode_reception')
+        adresse = cleaned_data.get('adresse_livraison')
+        frais = cleaned_data.get('frais_livraison')
+
+        statut_commande = cleaned_data.get('statut_commande')
+
+        # Vérification du paiement
+        if statut_paiement == 'PAYE':
+
+            if not mode_paiement:
+                self.add_error(
+                    'mode_paiement',
+                    "Veuillez sélectionner le mode de paiement."
+                )
+
+            if not date_paiement:
+                self.add_error(
+                    'date_paiement',
+                    "Veuillez renseigner la date du paiement."
+                )
+
+        elif statut_paiement == 'NON_PAYE':
+
+            if mode_paiement:
+                self.add_error(
+                    'mode_paiement',
+                    "Ce champ doit être vide si la commande n'est pas payée."
+                )
+
+            if date_paiement:
+                self.add_error(
+                    'date_paiement',
+                    "Ce champ doit être vide si la commande n'est pas payée."
+                )
+
+        # Vérification de la réception
+        if mode_reception == 'LIVRAISON' and not adresse:
+            self.add_error(
+                'adresse_livraison',
+                "L'adresse est obligatoire pour une livraison."
+            )
+
+        if mode_reception == 'RETRAIT' and frais is not None and frais != 0:
+            self.add_error(
+                'frais_livraison',
+                "Les frais doivent être à zéro pour un retrait."
+            )
+
+        # Vérification du statut
+        if statut_commande == 'TERMINEE' and statut_paiement != 'PAYE':
+            self.add_error(
+                'statut_paiement',
+                "La commande doit être payée avant de pouvoir être terminée."
+            )
+
+        return cleaned_data
 
 @admin.register(Commande)
 class CommandeAdmin(admin.ModelAdmin):
 
     list_display = (
         "id_commande",
+        "modifier_commande",
         "id_client",
         "date_commande",
         "statut_commande",
+        "contacter_client",
         "mode_reception",
         "statut_paiement",
         "mode_paiement",
         "date_paiement",
         "frais_livraison",
-        "contacter_client",
         "informer_frais_whatsapp",
     )
-
+    list_display_links = None
     fields = (
         'id_client',
         'date_commande',
@@ -68,8 +150,20 @@ class CommandeAdmin(admin.ModelAdmin):
         'mode_paiement',
         'date_paiement',
     )
-
+    form = CommandeAdminForm
     list_editable = ("frais_livraison",)
+    @admin.display(description="Gestion de la commande")
+    def modifier_commande(self, obj):
+        url = reverse(
+            f'admin:{self.model._meta.app_label}_{self.model._meta.model_name}_change',
+            args=[obj.pk]
+        )
+        return format_html(
+            '<a class="button" href="{}" style="background-color: #517767; color: white; '
+    'padding: 6px 12px; border-radius: 5px; text-decoration: none; '
+    'font-weight: 600;">Modifier</a>',
+            url
+        )
     def save_model(self, request, obj, form, change):
         with transaction.atomic():
 

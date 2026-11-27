@@ -31,7 +31,7 @@ class CommandeForm(forms.Form):
     adresse_livraison = forms.CharField(
         max_length=255,
         required=False,
-        label="Adresse de livraison"
+        label="Lieu de livraison (uniquement si choix : livraison)"
     )
 
     date_reception_prevue = forms.DateField(
