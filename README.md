@@ -228,7 +228,7 @@ Ces variables doivent être définies dans le terminal utilisé pour lancer le s
 
 Dans `config/settings.py`, vérifier les paramètres de connexion à la base de données.
 
-Le nom de la base, l'utilisateur et le port doivent correspondre à la configuration PostgreSQL de l'utilisateur.
+Le `nom de la base`, l'`utilisateur` et le `port` doivent correspondre à la configuration PostgreSQL de l'utilisateur.
 
 Exemple :
 
